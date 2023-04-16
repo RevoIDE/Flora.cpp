@@ -17,7 +17,7 @@ title flora.cpp
     echo Please select a model :
     echo 1. ggml-alpaca-7b-q4.bin - alpaca
     echo 2. ggml-vicuna-13b-4bit.bin - vicuna
-    set /p choix="choice : "
+    set /p choix="Choice : "
     if %choix% equ 1 (
         set MODEL=ggml-alpaca-7b-q4.bin
     ) else if %choix% equ 2 (
@@ -31,14 +31,27 @@ title flora.cpp
     REM checks if the file already exists
     if not exist %MODEL% (
         REM if the file does not exist, download it
-	    echo The template is not present on your computer, down
-        echo Download the template...
+	    echo The model is not on your computer, down
+        echo Downloading the model...
         powershell -Command "Invoke-WebRequest 'http://view.florahub.fr/models/%MODEL%' -OutFile '%MODEL%'"
-	echo Download complete.
-    cls
+	    echo Download complete.
+        cls
     )
 
+    if not exist "settings.json" (
+        REM if the file does not exist, download it
+	    echo "settings.json" is not present on your computer, down
+        echo Download settings...
+        powershell -Command "Invoke-WebRequest 'http://view.florahub.fr/models/settings.json' -OutFile 'settings.json'"
+	    echo Download complete.
+    )
+
+    set "json_file=settings.json"
+
+    for /f "tokens=2 delims=:," %%a in ('type "%json_file%" ^| findstr /c:"color"') do set "color=%%a"
+    for /f "tokens=2 delims=:," %%a in ('type "%json_file%" ^| findstr /c:"temp"') do set "temp=%%a"
+
     REM runs the program with the selected model
-    main.exe -t %THREADS% --temp 1 -i --interactive-first --color -c 2048 -n -1 --ignore-eos --repeat_penalty 1.2 --instruct -m %MODEL%
+    main.exe -t %THREADS% --temp %temp% -i --interactive-first --color -c %color% -n -1 --ignore-eos --repeat_penalty 1.2 --instruct -m %MODEL%
     pause
     goto start

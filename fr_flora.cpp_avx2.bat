@@ -34,11 +34,24 @@ title flora.cpp
 	    echo Le modèle n'est pas présent sur votre ordinateur, down
         echo Téléchargement du modèle...
         powershell -Command "Invoke-WebRequest 'http://view.florahub.fr/models/%MODEL%' -OutFile '%MODEL%'"
-	echo Téléchargement terminé.
-    cls
+	    echo Téléchargement terminé.
+        cls
     )
 
+    if not exist "settings.json" (
+        REM si le fichier n'existe pas, télécharge-le
+	    echo "settings.json" n'est pas présent sur votre ordinateur, down
+        echo Téléchargement des settings...
+        powershell -Command "Invoke-WebRequest 'http://view.florahub.fr/models/settings.json' -OutFile 'settings.json'"
+	    echo Téléchargement terminé.
+    )
+
+    set "json_file=settings.json"
+
+    for /f "tokens=2 delims=:," %%a in ('type "%json_file%" ^| findstr /c:"color"') do set "color=%%a"
+    for /f "tokens=2 delims=:," %%a in ('type "%json_file%" ^| findstr /c:"temp"') do set "temp=%%a"
+
     REM exécute le programme avec le modèle sélectionné
-    main.exe -t %THREADS% --temp 1 -i --interactive-first --color -c 2048 -n -1 --ignore-eos --repeat_penalty 1.2 --instruct -m %MODEL%
+    main.exe -t %THREADS% --temp %temp% -i --interactive-first --color -c %color% -n -1 --ignore-eos --repeat_penalty 1.2 --instruct -m %MODEL%
     pause
     goto start
