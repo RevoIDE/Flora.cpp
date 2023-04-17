@@ -19,30 +19,43 @@ if not exist "settings.json" (
     for /f "tokens=2 delims=:," %%a in ('type "%json_file%" ^| findstr /c:"lang"') do set "lang=%%a"
 
     if %lang%=="en" (
-        echo the selected language is English
+        echo  the selected language is English
         set json_lang_file=lang\en.json
     ) else if %lang%=="fr" (
-        echo la langue sélectionnée est le français
+        echo  la langue sélectionnée est le français
         set json_lang_file=lang\fr.json
     ) else (
-        echo an error occurred
+        echo  an error occurred
         set json_lang_file=lang\en.json
     )
 
-    
-    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:"sourcefiles"') do set "lang_sourcefiles=%%a"
-    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:"download"') do set "lang_download=%%a"
-    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:"dezipping"') do set "lang_dezipping=%%a"
-    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:"completed"') do set "lang_completed=%%a"
-    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:"error"') do set "lang_error=%%a"
-    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:"model"') do set "lang_model=%%a"
-    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:"choice"') do set "lang_choice_m=%%a"
-    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:"invalid_c"') do set "lang_invalid_c=%%a"
-    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:"model_d"') do set "lang_model_d=%%a"
-    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:"downloading_m"') do set "lang_downloading_m=%%a"
-    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:"download_c"') do set "lang_download_c=%%a"
-    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:"sett_down"') do set "lang_sett_down=%%a"
-    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:"download_sett"') do set "lang_download_sett=%%a"
+    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:sourcefiles') do set "lang_sourcefiles=%%~a"
+    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:download') do set "lang_download=%%a"
+    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:dezipping') do set "lang_dezipping=%%a"
+    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:completed') do set "lang_completed=%%a"
+    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:error') do set "lang_error=%%a"
+    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:model') do set "lang_model=%%a"
+    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:choice') do set "lang_choice_m=%%a"
+    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:invalid_c') do set "lang_invalid_c=%%a"
+    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:model_d') do set "lang_model_d=%%a"
+    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:downloading_m') do set "lang_downloading_m=%%a"
+    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:download_c') do set "lang_download_c=%%a"
+    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:sett_down') do set "lang_sett_down=%%a"
+    for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:download_sett') do set "lang_download_sett=%%a"
+
+    set lang_sourcefiles=%lang_sourcefiles:"=%
+    set lang_download=%lang_download:"=%
+    set lang_dezipping=%lang_dezipping:"=%
+    set lang_completed=%lang_completed:"=%
+    set lang_error=%lang_error:"=%
+    set lang_model=%lang_model:"=%
+    set lang_choice_m=%lang_choice_m:"=%
+    set lang_invalid_c=%lang_invalid_c:"=%
+    set lang_model_d=%lang_model_d:"=%
+    set lang_downloading_m=%lang_downloading_m:"=%
+    set lang_download_c=%lang_download_c:"=%
+    set lang_sett_down=%lang_sett_down:"=%
+    set lang_download_sett=%lang_download_sett:"=%
 
     if not exist "main.exe" (
         echo %lang_sourcefiles%
