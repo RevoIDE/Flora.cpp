@@ -1,4 +1,5 @@
 {
     "temp": 0.1,
-    "color" : 2048
+    "color" : 2048,
+    "lang" : "en"
 }
