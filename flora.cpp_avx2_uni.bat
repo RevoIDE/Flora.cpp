@@ -10,6 +10,7 @@ if not exist "settings.json" (
         echo downloading...
         powershell -Command "Invoke-WebRequest 'http://view.florahub.fr/models/settings.json' -OutFile 'settings.json'"
 	    echo download complete
+        echo -----------------------------------------
     )
     
     set "json_file=settings.json"
@@ -19,14 +20,26 @@ if not exist "settings.json" (
     for /f "tokens=2 delims=:," %%a in ('type "%json_file%" ^| findstr /c:"lang"') do set "lang=%%a"
 
     if %lang%=="en" (
-        echo  the selected language is English
+        echo the selected language is English
         set json_lang_file=lang\en.json
     ) else if %lang%=="fr" (
-        echo  la langue sélectionnée est le français
+        echo la langue sélectionnée est le français
         set json_lang_file=lang\fr.json
     ) else (
-        echo  an error occurred
+        echo an error occurred
         set json_lang_file=lang\en.json
+    )
+
+    set "lang_folder=lang"
+
+    if not exist "%cd%\%lang_folder%" (
+        mkdir %lang_folder%
+        cd %lang_folder%
+        powershell -Command "Invoke-WebRequest 'http://view.florahub.fr/models/lang/en.json' -OutFile 'en.json'"
+        powershell -Command "Invoke-WebRequest 'http://view.florahub.fr/models/lang/fr.json' -OutFile 'fr.json'"
+        echo download complete
+        cd ../
+        echo -----------------------------------------
     )
 
     for /f "tokens=2 delims=:," %%a in ('type "%json_lang_file%" ^| findstr /c:sourcefiles') do set "lang_sourcefiles=%%~a"
@@ -64,7 +77,7 @@ if not exist "settings.json" (
         echo %lang_dezipping%
         powershell -command "Expand-Archive llama-master-3173a62-bin-win-avx2-x64.zip ."
         echo %lang_completed%
-        echo .
+        echo -----------------------------------------
     )
 
     echo %lang_model%
@@ -79,7 +92,7 @@ if not exist "settings.json" (
         echo %invalid_c%
         goto start
     )
-    cls
+    echo -----------------------------------------
 
     REM vérifie si le fichier existe déjà
     if not exist %MODEL% (

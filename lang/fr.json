@@ -1,15 +1,15 @@
 {
-    "sourcefiles" : "Les fichiers sources n'existent pas",
-    "download" : "Téléchargement...",
-    "dezipping" : "Décompréssion...",
-    "completed" : "Terminé",
-    "error" : "Une erreur s'est produite",
-    "model" : "Veuillez choisir un modèle :",
-    "choice" : "Choix ",
-    "invalid_c" : "invalide",
-    "model_d" : "Le modèle n'est pas présent sur votre ordinateur, Téléchargement...",
-    "downloading_m" : "Téléchargement du modèle...",
-    "download_c" : "Téléchargement terminé",
-    "sett_down" : "'settings.json' n'est pas présent sur votre ordinateur, Téléchargement...",
-    "download_sett" : "Téléchargement des parametres..."
+    "sourcefiles" :"Les fichiers sources n'existent pas",
+    "download" :"Téléchargement...",
+    "dezipping" :"Décompréssion...",
+    "completed" :"Terminé",
+    "error" :"Une erreur s'est produite",
+    "model" :"Veuillez choisir un modèle :",
+    "choice" :"Choix ",
+    "invalid_c" :"invalide",
+    "model_d" :"Le modèle n'est pas présent sur votre ordinateur, Téléchargement...",
+    "downloading_m" :"Téléchargement du modèle...",
+    "download_c" :"Téléchargement terminé",
+    "sett_down" :"'settings.json' n'est pas présent sur votre ordinateur, Téléchargement...",
+    "download_sett" :"Téléchargement des parametres..."
 }

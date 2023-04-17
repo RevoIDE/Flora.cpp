@@ -1,15 +1,15 @@
 {
-    "sourcefiles": "Source files do not exist",
-    "download":"Download...",
-    "dezipping": "decompressing...",
-    "completed": "finished",
-    "error": "An error has occurred", 
-    "model":"Please choose a model:",
-    "choice":"Choice",
-    "invalid_c" : "invalid",
-    "model_d": "The model is not present on your computer, downloading...",
-    "downloading_m":"Downloading the model...",
-    "download_c": "Download completed",
-    "sett_down": "'settings.json' is not present on your computer, Download...",
-    "download_sett":"Download settings..."
+    "sourcefiles" :"Source files do not exist",
+    "download" :"Download...",
+    "dezipping" :"decompressing...",
+    "completed" :"finished",
+    "error" :"An error has occurred", 
+    "model" :"Please choose a model:",
+    "choice" :"Choice ",
+    "invalid_c" :"invalid",
+    "model_d" :"The model is not present on your computer, downloading...",
+    "downloading_m" :"Downloading the model...",
+    "download_c" :"Download completed",
+    "sett_down" :"'settings.json' is not present on your computer, Download...",
+    "download_sett" :"Download settings..."
 }
