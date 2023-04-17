@@ -5,7 +5,7 @@
     "completed" : "Terminé",
     "error" : "Une erreur s'est produite",
     "model" : "Veuillez choisir un modèle :",
-    "choice" : "Choix :",
+    "choice" : "Choix ",
     "invalid_c" : "invalide",
     "model_d" : "Le modèle n'est pas présent sur votre ordinateur, Téléchargement...",
     "downloading_m" : "Téléchargement du modèle...",
