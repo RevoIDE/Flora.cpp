@@ -1,4 +1,14 @@
 {
     "sourcefiles" : "the source files do not exist",
-    "download" : "Downloading ..."
+    "download" : "Downloading ...",
+    "dezipping" : "Dezipping...",
+    "completed" : "Completed",
+    "error" : "An error was occured",
+    "model" : "Please select a model",
+    "invalid_c" : "Invalid choice",
+    "model_d" : "The model is not on your computer, Downloading...",
+    "downloading_m" : "Downloading the model...",
+    "download_c" : "Download complete",
+    "sett_down" : "'settings.json' is not present on your computer, Downloading...",
+    "download_sett" : "Download settings..."
 }
