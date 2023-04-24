@@ -1,11 +1,13 @@
 @ECHO OFF
 chcp 65001
+setlocal enabledelayedexpansion
+
 SET /A THREADS=%NUMBER_OF_PROCESSORS%
 title flora.cpp
+
 :start
 
-if not exist "settings.json" (
-        REM si le fichier n'existe pas, télécharge-le
+    if not exist "settings.json" (
 	    echo settings file is not present on your computer
         echo downloading...
         powershell -Command "Invoke-WebRequest 'http://view.florahub.fr/models/settings.json' -OutFile 'settings.json'"
@@ -14,10 +16,35 @@ if not exist "settings.json" (
     )
     
     set "json_file=settings.json"
+    set "interactive="
+    set "instruct="
 
     for /f "tokens=2 delims=:," %%a in ('type "%json_file%" ^| findstr /c:"color"') do set "color=%%a"
     for /f "tokens=2 delims=:," %%a in ('type "%json_file%" ^| findstr /c:"temp"') do set "temp=%%a"
     for /f "tokens=2 delims=:," %%a in ('type "%json_file%" ^| findstr /c:"lang"') do set "lang=%%a"
+
+    for /f "tokens=1,2 delims=:," %%a in ('type "%json_file%" ^| findstr /c:"interactive"') do (
+        if /i "%%a"=="\"interactive\"" (
+            if /i "%%b"=="false" (
+                echo interactive: false
+                set "interactive=-i --interactive-first"
+            ) else (
+                echo interactive: true
+                set "interactive="
+            )
+        )
+    )
+    for /f "tokens=1,2 delims=:," %%a in ('type "%json_file%" ^| findstr /c:"instruct"') do (
+        if /i "%%a"=="\"instruct\"" (
+            if /i "%%b"=="false" (
+                echo instruct: false
+                set "instruct=--instruct"
+            ) else (
+                echo instruct: true
+                set "instruct="
+            )
+        )
+    )
 
     if %lang%=="en" (
         echo the selected language is English
@@ -94,9 +121,7 @@ if not exist "settings.json" (
     )
     echo -----------------------------------------
 
-    REM vérifie si le fichier existe déjà
     if not exist %MODEL% (
-        REM si le fichier n'existe pas, télécharge-le
 	    echo %lang_model_d%
         echo %lang_downloading_m%
         powershell -Command "Invoke-WebRequest 'http://view.florahub.fr/models/%MODEL%' -OutFile '%MODEL%'"
@@ -104,7 +129,6 @@ if not exist "settings.json" (
         cls
     )
 
-    REM exécute le programme avec le modèle sélectionné
-    main.exe -t %THREADS% --temp %temp% -i --interactive-first --color -c %color% -n -1 --ignore-eos --repeat_penalty 1.2 --instruct -m %MODEL%
+    main.exe -t %THREADS% --temp %temp% %interactive% --color -c %color% -n -1 --ignore-eos --repeat_penalty 1.2 %instruct% -m %MODEL%
     pause
     goto start
